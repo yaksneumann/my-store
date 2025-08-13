@@ -1,0 +1,51 @@
+<div class="product-list-container">
+
+    <div class="controls-section">
+        <button class="add-btn" (click)="addProduct()">+ Add</button>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="search products" [(ngModel)]="searchText"
+                (input)="onSearchChange()">
+        </div>
+
+        <div class="sort-container">
+            <span class="sort-label">Sort by</span>
+            <select class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()">
+                <option value="name">Name</option>
+                <option value="date">Recently Added</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="products-list">
+        @for (product of paginatedProducts; track product.id) {
+        <div class="product-card" [class.selected]="product.id === selectedProductId()" (click)="selectProduct(product)">
+
+            <img [src]="'img.png'" [alt]="product.name" class="product-image">
+
+            <div class="product-info">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-description">{{ product.description }}</p>
+            </div>
+
+            <button class="delete-btn" (click)="deleteProduct($event, product.id)">
+                Delete
+            </button>
+        </div>
+        }
+    </div>
+
+    @if (totalPages > 1) {
+    <div class="pagination">
+        <button class="pagination-btn" [disabled]="currentPage <= 1" (click)="onPageChange(currentPage - 1)">
+            &#8249; Prev Page
+        </button>
+
+        <span class="pagination-info">{{ currentPage }} of {{ totalPages }}</span>
+
+        <button class="pagination-btn" [disabled]="currentPage >= totalPages" (click)="onPageChange(currentPage + 1)">
+            Next Page &#8250;
+        </button>
+    </div>
+    }
+</div>

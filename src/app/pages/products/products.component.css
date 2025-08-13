@@ -1,0 +1,34 @@
+.products-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: calc(100vh - 120px);
+}
+
+.products-left-panel {
+    flex: 0 0 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.products-right-panel {
+    flex: 0 0 38%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .products-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .products-left-panel,
+    .products-right-panel {
+        flex: none;
+        width: 100%;
+    }
+}

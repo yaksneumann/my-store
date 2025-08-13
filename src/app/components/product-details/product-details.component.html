@@ -1,0 +1,66 @@
+<div class="product-detail-container">
+
+  @if (selectedProductId() || !isEditMode) {
+  <div class="product-detail-content">
+
+    <div class="product-image-section">
+      @if (selectedProduct?.imageUrl) {
+      <img [src]="selectedProduct?.imageUrl" [alt]="selectedProduct?.name" class="detail-image">
+      } @else {
+      <img [src]="'img.png'" [alt]="'empty img'" class="detail-image">
+      }
+    </div>
+
+    <form [formGroup]="productForm" (ngSubmit)="saveProduct()" class="product-form">
+
+      <div class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" formControlName="name" class="form-input" [class.error]="isFieldInvalid('name')"
+          placeholder="Product name">
+        @if (isFieldInvalid('name')) {
+        <span class="error-message">{{ getFieldError('name') }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" formControlName="description" class="form-textarea"
+          [class.error]="isFieldInvalid('description')" placeholder="Product description" rows="3">
+        </textarea>
+        @if (isFieldInvalid('description')) {
+        <span class="error-message">{{ getFieldError('description') }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="price" class="form-label">Price</label>
+        <div class="price-input-container">
+          <span class="currency-symbol">$</span>
+          <input type="number" id="price" formControlName="price" class="form-input price-input"
+            [class.error]="isFieldInvalid('price')" placeholder="0.00" step="0.01" min="0.01">
+        </div>
+        @if (isFieldInvalid('price')) {
+        <span class="error-message">{{ getFieldError('price') }}</span>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save-btn" [disabled]="productForm.invalid || !productForm.dirty">
+          {{ isEditMode ? 'Update' : 'Save' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  } @else {
+  <div class="empty-state">
+    <div class="empty-content">
+      <span class="empty-icon">📋</span>
+      <h3>Select a product to view details</h3>
+      <p>Choose a product from the list or click "Add" to create a new one.</p>
+    </div>
+  </div>
+  }
+
+</div>

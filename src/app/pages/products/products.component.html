@@ -1,0 +1,13 @@
+<div class="products-container">
+    <div class="products-left-panel">
+      <app-product-list 
+        [selectedProductId]="selectedProductId"
+        (productSelected)="onProductSelected($event)"
+        (addNewProduct)="onAddNewProduct()" />
+    </div>
+  
+    <div class="products-right-panel">
+      <app-product-details 
+        [selectedProductId]="selectedProductId" />
+    </div>
+  </div>
